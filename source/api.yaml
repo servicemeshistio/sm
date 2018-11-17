@@ -1,0 +1,268 @@
+swagger: '2.0'
+info:
+  description: REST API for Microservices
+  title: Mastering Service Mesh - Istio
+  version: v1
+host: iot.sm.cluster.local
+schemes:
+  - http
+basePath: /api/v2
+tags:
+- name: "IoT"
+  description: "Vital Data scraping from medical devices"
+paths:
+  /{patient_id}:
+    parameters:
+    - name: patient_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The ID for the patient
+    get:
+      operationId: getPatientData
+      summary: Get Patient Vital Data through IoT devices from database
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                "Name": "vikram",
+                "Dob": "7/3/76",
+                "AdmissionDate": "11/12/2018",
+                "DatofMeasureMent": "11/12/2018",
+                "TimeofMeasurement": "18:00:00"
+                "GlucoseLevel": "120",
+                "PulseRate": "86",
+                "BodyTemperature" "97",
+                "SystolicPressure": "120",
+                "DiastolicPressure": "80"
+                "RespirationRate": "22",
+                "IntracranialPressure": "7",
+                "OxygenSaturation": "92%",
+                "CentralVenousPressure": "3",
+                "CardiacOutput": "6",
+                "MixedVenousOxygenSaturation": "70",
+                "RightAtriumPressure": "6",
+                "RightVentriclePeakSystolic": "22",
+                "RightVentricleEndDiastolic": "7",
+                "PulmonaryArteryMean": "15",
+                "PulmonaryArteryPeakSystolic": "28",
+                "PulmonaryArteryEndDiastolic": "12",
+                "PulmonaryArteryOcclusionMean": "10",
+                "LeftAtriumMean": "8",
+                "LeftAtriumAWave": "12",
+                "LeftAtriumVWave": "7",
+                "LeftVentriclePeakSystolic": "100",
+                "LeftVentricleEndDiastolic": "7",
+                "BrachialArteryMean": "80",
+                "BrachialArteryPeakSystolic": "120",
+                "BrachialArteryEndDiastolic": "70"
+              }
+    post:
+      operationId: postPatientData
+      summary: Post Patient Vital Data to the database
+      description: |
+        Persist data to the database
+      produces:
+      - application/json
+      consumes:
+      - application/json
+      parameters:
+        - name: body
+          in: body
+          description : >-
+            Data you want to add about the patient
+          required: true
+          schema:
+            $ref: '#/definitions/PatientObject'
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                "Name": "vikram",
+                "Dob": "7/3/76",
+                "AdmissionDate": "11/12/2018",
+                "DatofMeasureMent": "11/12/2018",
+                "TimeofMeasurement": "18:00:00"
+                "GlucoseLevel": "120",
+                "PulseRate": "86",
+                "BodyTemperature" "97",
+                "SystolicPressure": "120",
+                "DiastolicPressure": "80"
+                "RespirationRate": "22",
+                "IntracranialPressure": "7",
+                "OxygenSaturation": "92%",
+                "CentralVenousPressure": "3",
+                "CardiacOutput": "6",
+                "MixedVenousOxygenSaturation": "70",
+                "RightAtriumPressure": "6",
+                "RightVentriclePeakSystolic": "22",
+                "RightVentricleEndDiastolic": "7",
+                "PulmonaryArteryMean": "15",
+                "PulmonaryArteryPeakSystolic": "28",
+                "PulmonaryArteryEndDiastolic": "12",
+                "PulmonaryArteryOcclusionMean": "10",
+                "LeftAtriumMean": "8",
+                "LeftAtriumAWave": "12",
+                "LeftAtriumVWave": "7",
+                "LeftVentriclePeakSystolic": "100",
+                "LeftVentricleEndDiastolic": "7",
+                "BrachialArteryMean": "80",
+                "BrachialArteryPeakSystolic": "120",
+                "BrachialArteryEndDiastolic": "70"
+              }
+  "/listall/{page}":
+    parameters:
+    - name: page
+      required: true
+      in: path
+      type: string
+      description: |
+        Page number being requested
+    get:  
+      operationId: listall
+      summary: Get patients per page
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                 "patients": [
+                    {
+                       "Name": "vikram",
+                       "Dob": "7/3/76",
+                       "AdmissionDate": "11/12/2018"
+                    },
+                    {
+                       "Name": "prakash",
+                       "Dob": "7/6/66",
+                       "AdmissionDate": "11/13/2018"
+                    },
+                    {
+                       "Name": "gaya prasad",
+                       "Dob": "10/6/45",
+                       "AdmissionDate": "11/13/2018"
+                    },
+                    {
+                       "Name": "sundar",
+                       "Dob": "12/3/89",
+                       "AdmissionDate": "11/16/2018"
+                    }
+                  ]
+              }
+
+definitions:
+  ErrorResponse:
+    type: "object"
+    properties:
+      message:
+        type: "string"
+        description: "error message"
+      exception:
+        type: "string"
+        description: "string representation of the error"
+      _messageCode_:
+        type: "string"
+        description: "error code"
+      _statusCode_:
+        type: "integer"
+        format: "int32"
+        description: "http error code"
+  SuccessResponse:
+    type: "object"
+    properties:
+      _messageCode_:
+        type: "string"
+        description: "message code"
+      message:
+        type: "string"
+        description: "message"
+  SuccessPostResponse:
+    type: "object"
+    properties:
+      _messageCode_:
+        type: "string"
+        description: "message code"
+      id:
+        type: "string"
+        description: "id of the added onject"
+      message:
+        type: "string"
+        description: "message"
+  SuccessGetResponse:
+    type: "object"
+    properties:
+      _messageCode_:
+        type: "string"
+        description: "message code"
+      message:
+        type: "string"
+        description: "message"
+      status:
+        type: "string"
+        description: "message"
+      requestObj:
+        type: object
+  PatientObject:
+    type: "object"
+    properties:
+      Name:
+        type: string
+      Dob:
+        type: string
+      AdmissionDate:
+        type: string
+      DatofMeasureMent:
+        type: string
+      TimeofMeasurement:
+        type: string
+      GlucoseLevel:
+        type: string
+      PulseRate:
+        type: string
+      BodyTemperature:
+        type: string
+      SystolicPressure:
+        type: string
+      DiastolicPressure:
+        type: string
+      RespirationRate:
+        type: string
+      IntracranialPressure:
+        type: string
+      OxygenSaturation:
+        type: string
+      CentralVenousPressure:
+        type: string
+      CardiacOutput:
+        type: string
+      MixedVenousOxygenSaturation:
+        type: string
+      RightAtriumPressure:
+        type: string
+      RightVentriclePeakSystolic:
+        type: string
+      RightVentricleEndDiastolic:
+        type: string
+      PulmonaryArteryMean:
+        type: string
+      PulmonaryArteryPeakSystolic:
+        type: string
+      PulmonaryArteryEndDiastolic:
+        type: string
+      PulmonaryArteryOcclusionMean:
+        type: string
+      LeftAtriumMean:
+        type: string
+        
+        
+
