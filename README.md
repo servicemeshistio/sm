@@ -9,7 +9,6 @@ This projects demonstrastes on how to use cockroachdb with golang using one of t
 ```
 brew install --HEAD upx
 ```
-
 4. Please make sure you have `go-swagger` installed. Installation instructions can be found from [here](https://goswagger.io/install.html).  
 
 5. Please clone this project in **$GOPATH/src/**. This is very important step. Typically $GOPATH is your ~/go/ directory incase of linux and macOS
@@ -45,4 +44,8 @@ create database if not exists sm; create user if not exists sm_user; grant all o
 1. Edit the yaml to add api end-point.
 2. Run `make swagger` command to autogenerate swagger code from api.yaml. 
 3. You should only edit `restapi/configure_sm.go` to add new endpoint, the controller code goes to `source/backend` directory.
+
+## Run api-server
+1. Do `./bin/sm-server --port 2323`. You can change host and post using flags to run it on whatever socker you want. 
+2. Currently container is also set to expose 2323 port but that is also configurable from `Dockerfile`
 

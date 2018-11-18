@@ -13,5 +13,5 @@ RUN sh ./build/docker_install_util.sh
 
 FROM scratch
 COPY --from=0 /go/src/sm/bin/sm-server /sm-server
-EXPOSE 1234
-ENTRYPOINT [ "/sm-server", "--host", "0.0.0.0", "--port", "1234" ]
+EXPOSE 2323
+ENTRYPOINT [ "/sm-server", "--host", "0.0.0.0", "--port", "2323" ]
