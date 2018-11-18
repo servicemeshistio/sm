@@ -24,6 +24,7 @@
 /bin/
 Gopkg.lock
 /source/restapi/
+/source/models/
 /source/cmd/sm-server/debug
 # EXCEPT for the one file which we hook up our handler functions to
 !/source/restapi/configure_smapi.go

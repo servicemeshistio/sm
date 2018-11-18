@@ -1,29 +1,29 @@
 package utils
 
 import (
-	"flag"
 	"fmt"
-	"sm/source/utils/dbschema"
+	"sm/source/models"
 
 	"github.com/jinzhu/gorm"
+	_ "github.com/lib/pq"
 )
 
 var (
-	addr = flag.String("addr", "postgresql://sm_user@localhost:26257/sm?sslmode=disable", "the address of the database")
+	addr = "postgresql://sm_user@localhost:26257/sm?sslmode=disable"
+
 	//ServerInfo is the cockroachdb connection info object
 	ServerInfo *Server
 )
 
 func init() {
-	flag.Parse()
-	db := setupDB(*addr)
-	defer db.Close()
+	db := setupDB(addr)
+	// defer db.Close()
 	ServerInfo = NewServer(db)
 }
 
 // Server is an http server that handles REST requests.
 type Server struct {
-	db *gorm.DB
+	Db *gorm.DB
 }
 
 func setupDB(addr string) *gorm.DB {
@@ -32,11 +32,11 @@ func setupDB(addr string) *gorm.DB {
 		panic(fmt.Sprintf("failed to connect to database: %v", err))
 	}
 	// Migrate the schema
-	db.AutoMigrate(&dbschema.Patient{})
+	db.AutoMigrate(&models.PatientObject{})
 	return db
 }
 
 // NewServer creates a new instance of a Server.
 func NewServer(db *gorm.DB) *Server {
-	return &Server{db: db}
+	return &Server{Db: db}
 }

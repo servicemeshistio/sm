@@ -81,42 +81,14 @@ paths:
             $ref: '#/definitions/PatientObject'
       responses:
         '200':
-          description: 200 response
-          examples:
-            application/json: |-
-              {
-                "Name": "vikram",
-                "Dob": "7/3/76",
-                "AdmissionDate": "11/12/2018",
-                "DatofMeasureMent": "11/12/2018",
-                "TimeofMeasurement": "18:00:00"
-                "GlucoseLevel": "120",
-                "PulseRate": "86",
-                "BodyTemperature" "97",
-                "SystolicPressure": "120",
-                "DiastolicPressure": "80"
-                "RespirationRate": "22",
-                "IntracranialPressure": "7",
-                "OxygenSaturation": "92%",
-                "CentralVenousPressure": "3",
-                "CardiacOutput": "6",
-                "MixedVenousOxygenSaturation": "70",
-                "RightAtriumPressure": "6",
-                "RightVentriclePeakSystolic": "22",
-                "RightVentricleEndDiastolic": "7",
-                "PulmonaryArteryMean": "15",
-                "PulmonaryArteryPeakSystolic": "28",
-                "PulmonaryArteryEndDiastolic": "12",
-                "PulmonaryArteryOcclusionMean": "10",
-                "LeftAtriumMean": "8",
-                "LeftAtriumAWave": "12",
-                "LeftAtriumVWave": "7",
-                "LeftVentriclePeakSystolic": "100",
-                "LeftVentricleEndDiastolic": "7",
-                "BrachialArteryMean": "80",
-                "BrachialArteryPeakSystolic": "120",
-                "BrachialArteryEndDiastolic": "70"
-              }
+          description: Success
+          schema:
+            $ref: '#/definitions/SuccessResponse'
+        '400':
+          description: Error
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+
   "/listall/{page}":
     parameters:
     - name: page
@@ -215,6 +187,8 @@ definitions:
   PatientObject:
     type: "object"
     properties:
+      Id:
+        type: string
       Name:
         type: string
       Dob:
@@ -263,6 +237,22 @@ definitions:
         type: string
       LeftAtriumMean:
         type: string
-        
+      LeftAtriumAWave:
+        type: string
+      LeftAtriumVWave:
+        type: string
+      LeftVentriclePeakSystolic:
+        type: string
+      LeftVentricleEndDiastolic:
+        type: string
+      BrachialArteryMean:
+        type: string
+      BrachialArteryPeakSystolic:
+        type: string
+      BrachialArteryEndDiastolic:
+        type: string
+      
+      
+
         
 

@@ -43,6 +43,6 @@ create database if not exists sm; create user if not exists sm_user; grant all o
 ## Adding new api endpoints.
 
 1. Edit the yaml to add api end-point.
-2. Run `make swagger` command to generate the api.yaml which will be validated against swagger 2.0 specifications and autogenerate the code in restapi directory.
-3. You should only edit `restapi/configure_coreapi.go` to add new endpoint, the controller login goes to `coreapi/addonapi` directory.
+2. Run `make swagger` command to autogenerate swagger code from api.yaml. 
+3. You should only edit `restapi/configure_sm.go` to add new endpoint, the controller code goes to `source/backend` directory.
 
