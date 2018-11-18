@@ -1,7 +1,4 @@
 #!/bin/sh
-
-
-echo "============= Installing UPX ==============="
 PLAT=`uname -s`
 rm -rf tools
 rm -rf bin
